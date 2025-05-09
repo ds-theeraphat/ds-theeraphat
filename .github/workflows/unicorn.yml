@@ -1,0 +1,28 @@
+name: Update Unicorn Animation
+on:
+  schedule:
+    - cron: '*/2 * * * *'  # รันทุก 2 นาที
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Update README
+        run: |
+          # หมุนระหว่าง 4 เฟรมของยูนิคอร์น
+          FRAME=$(( $(date +%s) % 4 ))
+          case $FRAME in
+            0) UNICORN="🦄✨\n \\\n  \\\n  ,,))\n (\"">)-'\n  )(\n ( )" ;;
+            1) UNICORN=" 🦄✨\n  \\\n   \\\n  ,,))\n (\"">)-'\n  )(\n ( )" ;;
+            2) UNICORN="  🦄✨\n   \\\n    \\\n  ,,))\n (\"">)-'\n  )(\n ( )" ;;
+            3) UNICORN="   🦄✨\n    \\\n     \\\n  ,,))\n (\"">)-'\n  )(\n ( )" ;;
+          esac
+          
+          sed -i "s/<!-- UNICORN_START -->.*<!-- UNICORN_END -->/<!-- UNICORN_START -->\`\`\`txt\n$UNICORN\n\`\`\`\n<!-- UNICORN_END -->/" README.md
+          
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          git add README.md
+          git commit -m "Update unicorn animation frame"
+          git push
