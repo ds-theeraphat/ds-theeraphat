@@ -21,8 +21,8 @@ jobs:
           
           sed -i "s/<!-- UNICORN_START -->.*<!-- UNICORN_END -->/<!-- UNICORN_START -->\`\`\`txt\n$UNICORN\n\`\`\`\n<!-- UNICORN_END -->/" README.md
           
-          git config user.name "GitHub Actions"
-          git config user.email "actions@github.com"
+          git config user.name "ds-theeraphat"
+          git config user.email "Theeraphat.Phatjinda@datasabai.com"
           git add README.md
           git commit -m "Update unicorn animation frame"
           git push
